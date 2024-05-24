@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+button.selected{
+  background-color: #0e0d0d;
+  color: white;
+}
+#button{
+
+  padding: 20px 40px;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 1rem;
+  border: none;
+  transition: 1s  ease-in-out;
+  box-shadow: 3px 1px 3px 3px rgb(189, 188, 188);
+
+}
+#editbutton{
+  background-color: #42e042;
+  color: black;
+  border-radius: 2px;
+}

@@ -1,0 +1,222 @@
+import logo from './logo.svg';
+// import './App.css';
+import { useEffect, useState } from 'react';
+import Form from './Form';
+import List from './List';
+import Header from './Header'
+import Nav from './Nav'
+import Home from './Home'
+import NewPost from './NewPost'
+import PostPage from './PostPage'
+import About from './About'
+import Missing from './Missing'
+import Footer from './Footer'
+import { Link, Route, Router, Routes, useNavigate } from 'react-router-dom';
+import Post from './Post';
+import PostLayout from './PostLayout';
+import { format } from 'date-fns';
+import api from './api/Posts'
+import EditPosts from './EditPosts';
+import useWindowSize from './Hooks/useWindowSize';
+import useAxiosFetch from './Hooks/useAxiosFetch';
+import DataProvider from './Context/DataContext'
+
+function App() {
+
+
+//     // const API_KEY = "https://jsonplaceholder.typicode.com/";
+//   // const [items, setItems] = useState([]);
+//   // const [reqType, setReqType] = useState("users")
+
+//   // useEffect( () => {
+//   //   const fetchItems=async()=>{
+//   //     try {
+//   //       const response = await fetch(`${API_KEY}${reqType}`)
+//   //       if (!response.ok) throw new Error("Network response was not ok");
+
+//   //       const data =await response.json()
+//   //       setItems(data)
+        
+        
+//   //     } catch (error) {
+//   //       console.log(error.message);
+//   //     }
+//   //   }
+//   //  fetchItems()
+//   // },[reqType])
+
+// const [posts,setPosts] =useState([])
+
+
+//   const [search,setSearch]=useState('')
+//   const [searchResults,setSearchResults]=useState([])
+//   const [postTitle,setPostTitle]=useState("")
+//   const [postBody,setPostBody]=useState('')
+//   const [editTitle,setEditTitle]=useState('')
+//   const [editBody,setEditBody]=useState('')
+//   const {width }=useWindowSize()
+//   const {data,fetchError,isLoading}=useAxiosFetch('http://localhost:3500/posts')
+//   const usenavigate=useNavigate()
+
+//   useEffect(()=>{
+//     setPosts(data)
+//       },[data])
+    
+
+// // useEffect(()=>{
+// //   const fetchPosts=async ()=>{
+// //     try {
+// //       const response =await api.get('/posts')
+// //       setPosts(response.data)
+// //     } catch (err) {
+// //       if(err.response){
+// //         console.log(err.response.data)
+// //         console.log(err.response.status)
+// //         console.log(err.response.headers)}
+// //         else{
+// //           console.log(`Error ${err.message}`)
+// //         }
+// //     }
+// //   }
+// //   fetchPosts();
+// // },[])
+
+
+
+//   const handleSubmit=async (e)=>{
+//     e.preventDefault();
+//     const id=posts.length ?posts[posts.length -1].id +1  : 1;
+//     const date=format( new Date(),"MMMM dd yyyy pp")
+//     const newPosts={id,title:postTitle, datetime:date ,body:postBody}
+//     try{
+
+//       const response =await api.post('/posts',newPosts)
+//       const allPosts=[...posts,response.data]
+//       setPosts(allPosts)
+//       setPostTitle('')
+//       setPostBody('')
+//       // navigate('/')
+//       usenavigate('/')
+//     }
+//     catch(err){
+//        if(err.response){
+//       console.log(err.response.data)
+//       console.log(err.response.status)
+//       console.log(err.response.headers)}
+//       else{
+//         console.log(`Error ${err.message}`)
+//       }
+//     }
+//   }
+
+//   const handleEdit =async (id)=> {
+//     console.log({id})
+//     const date=format( new Date(),"MMMM dd yyyy pp")
+//     const UpdatedPosts={id,title:editTitle, datetime:date ,body:editBody}
+//     try {
+//       const response=await api.put(`/posts/${id}`,UpdatedPosts)
+      
+//     setPosts(posts.map(post=>post.id===id?{...response.data} : post))
+//     setEditBody('')
+//     setEditTitle('')
+   
+//    usenavigate('/')
+      
+//     } catch (err) {
+//       console.log(`Error ${err.message}`)
+
+//     }
+//   }
+
+//   const handleDelete=async (id)=>{
+//   try {
+//     await api.delete(`/posts/${id}`)
+//     const deletepost=posts.filter(post => post.id !== id )
+//     setPosts(deletepost)
+//     usenavigate('/')
+  
+//   } catch (err) {
+//     console.log(`Error ${err.message}`)
+
+//   }  }
+
+
+//   useEffect(()=>{
+//      const filterposts=posts.filter((post)=>(
+//       (post.body.toLowerCase()).includes(search.toLowerCase()) ||
+//     ((post.title).toLowerCase()).includes(search.toLowerCase()) )
+//   )
+// setSearchResults(filterposts.reverse())
+// },[posts,search])
+
+  return (
+    <div className="App">
+    {/* <Form 
+      reqType={reqType}
+      setReqType={setReqType}
+    
+    />
+    <List
+      items={items}
+    />
+   */}
+   <DataProvider  >
+
+   <Header
+   title={"react js learning"} 
+  //  width={width}
+
+   />
+   <Nav 
+    // search={search}
+    // setSearch={setSearch}
+   />
+   <Routes>
+    <Route path='/' 
+      element={<Home
+      //  posts={searchResults}
+      //  fetchError={fetchError}
+      //  isLoading={isLoading}
+
+   />}
+    />
+    <Route path='post' >
+<Route index
+          element={
+    <NewPost
+        // handleSubmit={handleSubmit}
+        // postTitle={postTitle}
+        // postBody={postBody}
+        // setPostBody={setPostBody}
+        // setPostTitle={setPostTitle}
+        // handleEdit={handleEdit}
+          />  } />
+     
+
+    <Route  path=':id' element={<PostPage
+    //  posts={posts} handleDelete={handleDelete}
+      
+    />}/>
+</Route>
+<Route  path='/edit/:id' element={<EditPosts 
+    // posts={posts}
+    // handleEdit={handleEdit}
+    // editBody={editBody}
+    // editTitle={editTitle}
+    // setEditBody={setEditBody}
+    // setEditTitle={setEditTitle}
+
+    />}/> 
+<Route path='about' element={
+   <About />}/>
+   <Route path='*' element={
+   <Missing />}/>
+
+   </Routes>
+   <Footer />
+   </DataProvider>
+    </div>
+  );
+}
+
+export default App;

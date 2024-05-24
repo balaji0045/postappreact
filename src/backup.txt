@@ -1,0 +1,20 @@
+<ul>
+  <li><Link to={"/"}>home</Link></li>
+  {/* <li><Link to={"/newpost"}>newpost</Link></li> */}
+  <li><Link to={"/postpage"}>postpage</Link></li>
+  <li><Link to={"/about"}>about</Link></li>
+</ul>
+<Routes>
+  <Route path='/' element={<Home />} />
+  <Route path='/newpost' element={<NewPost />} />
+  <Route path='/about' element={<About />}/>
+
+  <Route path='/postpage' element={<PostLayout/>}>
+          <Route index element={<PostPage/>} />
+          <Route path=':id' element={<Post />}/>
+          <Route path='newpost' element={<NewPost />}/>
+  </Route>
+
+  <Route path='*' element={<Missing />}/>
+
+</Routes>
